@@ -5,5 +5,13 @@ let sum = function (...theArgs) {
 };
 
 let subtract = function (...theArgs) {
-    return theArgs.reduce((sum, current) => sum - current);
+    return theArgs.reduce((start, current) => start - current);
+};
+
+let multiply = function (...theArgs) {
+    return theArgs.reduce((product, current) => product * current);
+};
+
+let divide = function (...theArgs) {
+    return theArgs.reduce((numerator, current) => numerator / current);
 };
