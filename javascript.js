@@ -15,3 +15,5 @@ let multiply = function (...theArgs) {
 let divide = function (...theArgs) {
     return theArgs.reduce((numerator, current) => numerator / current);
 };
+
+let var1 = null, var2 = null, operator = null;
