@@ -19,6 +19,7 @@ let divide = function (...theArgs) {
 let var1 = null, var2 = null, operator = null;
 
 let validOperators = ['x', '*', '/', '+', '-'];
+let integers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
 
 let operate = function (variableOne, variableTwo, theOperator) {
     let output = 0;
@@ -43,7 +44,23 @@ let displayBoxValue = null;
 
 buttons.forEach(element => {
     element.addEventListener('click', () => {
-        displayBox.textContent = element.innerHTML;
-        displayBoxValue = element.innerHTML;
+        if (element.innerHTML === 'CLEAR') {
+            displayBox.innerHTML = 0;
+            var1, var2, operator = null;
+        } else if (validOperators.includes(element.innerHTML)) {
+            var1 = Number(displayBox.innerHTML);
+            operator = element.innerHTML;
+            displayBox.innerHTML = 0;
+        } else if (integers.includes(element.innerHTML)) {
+            displayBoxValue = (displayBox.textContent === '0') ? 
+                element.innerHTML : 
+                displayBox.textContent.concat(element.innerHTML);
+            displayBox.innerHTML = displayBoxValue;
+        } else {
+            var2 = Number(displayBox.innerHTML);
+            let output = operate(var1, var2, operator); 
+            displayBox.textContent = output;
+            var1 = Number(displayBox.innerHTML);
+        }
     })
 });
