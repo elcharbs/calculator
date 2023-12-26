@@ -41,26 +41,31 @@ let operate = function (variableOne, variableTwo, theOperator) {
 const buttons = document.querySelectorAll(".calculatorButton");
 const displayBox = document.querySelector(".displayBox");
 let displayBoxValue = null;
+let output = null;
 
 buttons.forEach(element => {
     element.addEventListener('click', () => {
-        if (element.innerHTML === 'CLEAR') {
+        if (element.innerHTML === 'CLEAR' || displayBox.innerHTML === 'ERROR') {
             displayBox.innerHTML = 0;
             var1, var2, operator = null;
         } else if (validOperators.includes(element.innerHTML)) {
             var1 = Number(displayBox.innerHTML);
             operator = element.innerHTML;
             displayBox.innerHTML = 0;
+            console.log('After operator button var1 is ' + var1 + ' var2 is ' + var2 + ' the operator is ' + operator + ' and the output is ' + output);
         } else if (integers.includes(element.innerHTML)) {
             displayBoxValue = (displayBox.textContent === '0') ? 
                 element.innerHTML : 
                 displayBox.textContent.concat(element.innerHTML);
             displayBox.innerHTML = displayBoxValue;
+            console.log('After integer button var1 is ' + var1 + ' var2 is ' + var2 + ' the operator is ' + operator + ' and the output is ' + output);
         } else {
             var2 = Number(displayBox.innerHTML);
-            let output = operate(var1, var2, operator); 
+            output = operate(var1, var2, operator); 
             displayBox.textContent = output;
             var1 = Number(displayBox.innerHTML);
+            console.log('After equal button var1 is ' + var1 + ' var2 is ' + var2 + ' the operator is ' + operator + ' and the output is ' + output);
+            var2 = null;
         }
     })
 });
