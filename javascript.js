@@ -36,3 +36,14 @@ let operate = function (variableOne, variableTwo, theOperator) {
             return 'ERROR';
     }
 };
+
+const buttons = document.querySelectorAll(".calculatorButton");
+const displayBox = document.querySelector(".displayBox");
+let displayBoxValue = null;
+
+buttons.forEach(element => {
+    element.addEventListener('click', () => {
+        displayBox.textContent = element.innerHTML;
+        displayBoxValue = element.innerHTML;
+    })
+});

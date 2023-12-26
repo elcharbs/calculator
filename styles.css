@@ -2,6 +2,7 @@ body {
     background-color: black;
     color:rgb(0, 241, 44);
     font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 .calculator {
@@ -13,7 +14,6 @@ body {
 .calculator, .buttonBox, .displayBox {
     display: flex;
     flex-direction: column;
-    border-color: aliceblue; /* Delete */
     gap: 10px;
     padding: 10px;
     text-align: right;
@@ -39,7 +39,7 @@ body {
     flex: auto;
 }
 
-.calculatorButton, .calculatorButtonNull {
+.calculatorButton {
     display: flex;
     flex: auto;
     width: 20%;
@@ -49,4 +49,9 @@ body {
     border-style: solid;
     justify-content: center;
     align-items: center;
+}
+
+.calculatorButton:hover {
+    background-color: black;
+    color: white;
 }
