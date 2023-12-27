@@ -43,6 +43,7 @@ const displayBox = document.querySelector(".displayBox");
 let displayBoxValue = null;
 let output = null;
 let lastButtonOperator = false;
+let lastButtonEqual = false;
 
 buttons.forEach(element => {
     element.addEventListener('click', () => {
@@ -53,15 +54,18 @@ buttons.forEach(element => {
             operator = null;
             output = null;
             lastButtonOperator = false;
+            lastButtonEqual = false;
         } else if (integers.includes(element.innerHTML)) {
             if (lastButtonOperator === true) {
                 displayBox.innerHTML = element.innerHTML;
                 lastButtonOperator = false;
+                lastButtonEqual = false;
             } else {
                 displayBoxValue = (displayBox.textContent === '0') ? 
                  element.innerHTML : 
                  displayBox.textContent.concat(element.innerHTML);
                 displayBox.innerHTML = displayBoxValue;
+                lastButtonEqual = false;
             }
         } else if (validOperators.includes(element.innerHTML)) {
             if (lastButtonOperator === false) {
@@ -69,18 +73,32 @@ buttons.forEach(element => {
                 displayBox.innerHTML = 0;
                 operator = element.innerHTML;
                 lastButtonOperator = true;
+                lastButtonEqual = false;
             } else {
                 var2 = Number(displayBox.innerHTML);
                 operator = element.innerHTML;
                 output = operate(var1, var2, operator);
                 displayBox.innerHTML = output;
+                lastButtonEqual = false;
             }
         } else if (element.innerHTML === '=') {
+           if (lastButtonEqual === false) {
             var2 = Number(displayBox.innerHTML);
             output = operate(var1, var2, operator);
+            console.log('equal not last ', var1, var2, output);
             displayBox.innerHTML = output;
-            var2 = output;
+            var1 = output;
             lastButtonOperator = false;
+            lastButtonEqual = true;
+            console.log(var1, var2, output);
+           } else {
+            console.log('equal last ',var1, var2, output);
+            output = operate(var1, var2, operator);
+            displayBox.innerHTML = output;
+            lastButtonOperator = false;
+            var1 = output;
+            console.log(var1, var2, output);
+           }
         }
     })
 })
