@@ -51,41 +51,36 @@ buttons.forEach(element => {
             var1 = null;
             var2 = null;
             operator = null;
-            console.log(var1 + ' ' + var2 + ' ' + operator);
-        } else if (validOperators.includes(element.innerHTML)) {
-            if (var1 !== null) {
-                var2 = Number(displayBox.innerHTML);
-                operator = element.innerHTML;
-                output = operate(var1, var2, operator); 
-                displayBox.textContent = output;
-                console.log(var1 + ' is var1');
-                console.log(var2 + ' is var2');
-                var2 = null;
-                lastButtonOperator = true;
-            } else {
-                var1 = Number(displayBox.innerHTML);
-                operator = element.innerHTML;
-                displayBox.innerHTML = 0;
-                console.log('After operator button var1 is ' + var1 + ' var2 is ' + var2 + ' the operator is ' + operator + ' and the output is ' + output);
-            }
+            output = null;
+            lastButtonOperator = false;
         } else if (integers.includes(element.innerHTML)) {
             if (lastButtonOperator === true) {
                 displayBox.innerHTML = element.innerHTML;
                 lastButtonOperator = false;
             } else {
                 displayBoxValue = (displayBox.textContent === '0') ? 
-                element.innerHTML : 
-                displayBox.textContent.concat(element.innerHTML);
-            displayBox.innerHTML = displayBoxValue;
-            console.log('After integer button var1 is ' + var1 + ' var2 is ' + var2 + ' the operator is ' + operator + ' and the output is ' + output);    
+                 element.innerHTML : 
+                 displayBox.textContent.concat(element.innerHTML);
+                displayBox.innerHTML = displayBoxValue;
             }
-        } else {
+        } else if (validOperators.includes(element.innerHTML)) {
+            if (lastButtonOperator === false) {
+                var1 = Number(displayBox.innerHTML);
+                displayBox.innerHTML = 0;
+                operator = element.innerHTML;
+                lastButtonOperator = true;
+            } else {
+                var2 = Number(displayBox.innerHTML);
+                operator = element.innerHTML;
+                output = operate(var1, var2, operator);
+                displayBox.innerHTML = output;
+            }
+        } else if (element.innerHTML === '=') {
             var2 = Number(displayBox.innerHTML);
-            output = operate(var1, var2, operator); 
-            displayBox.textContent = output;
-            var1 = Number(displayBox.innerHTML);
-            console.log('After equal button var1 is ' + var1 + ' var2 is ' + var2 + ' the operator is ' + operator + ' and the output is ' + output);
-            var2 = null;
+            output = operate(var1, var2, operator);
+            displayBox.innerHTML = output;
+            var2 = output;
+            lastButtonOperator = false;
         }
     })
-});
+})
